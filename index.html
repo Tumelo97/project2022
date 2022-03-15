@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>jQuery Project</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+   
+</head>
+<body>
+
+
+<div class="container"style="max-width: 700px;">
+
+    <div class="text-center" style="margin: 20px 0px 20px 0px;">
+        <img src="/images/pic.jpg" width="70px" height="70px"><br>
+        <span class="text-secondary">Add or Remove Input Fields Dynamically using jQuery</span>
+        
+    </div>
+    
+
+    <form method="post" class="inline" action="">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="inputFormRow">
+                    <div class="input-group mb-3">
+                       
+                        <input type="text" name="title[]" id="preview_div" class="form-control m-input" placeholder="Level 1" autocomplete="off">
+                        
+                        <div class="input-group-append">
+                            <button id="removeRow" type="button" class="btn btn-danger">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="newRow"></div>
+                <button id="addRow" type="button" class="btn btn-info" >New Line</button>
+                <br>
+                <br>
+                    <div class="form-group">
+                       
+                        <textarea class="form-control" id="txtTarget" rows="3"></textarea>
+                </div>
+                <div id="content" style="border: #ccc 3px solid ; margin-top:20px;">
+                    Results will be displayed here :
+                 </div>
+            </div>
+        </div>
+    </form>
+</div>
+ <script type="text/javascript">
+       $(document).ready(function () {
+
+    function inline(){
+      var html = '';
+      html += '<div id="inputFormRow">';
+      html += '<div class="input-group mb-3">';
+      html += '<input type="text" id="preview_div" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+      html += '<div class="input-group-append">';
+      html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+      html += '</div>';
+      html += '</div>';
+      $('#newRow').append(html);
+    }
+        // add row
+        $("#addRow").click(function () {
+            var html = '';
+            html += '<div id="inputFormRow">';
+            html += '<div class="input-group mb-3">';
+            html += '<input type="text" id="preview_div" name="title[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html += '<div class="input-group-append">';
+            html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+            html += '</div>';
+            html += '</div>';
+
+            $('#newRow').append(html);
+        });
+       
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest('#inputFormRow').remove();
+        });
+        
+        
+
+
+ // $(document).ready(function(){
+    $("body").on('keyup', 'input[type=text]', function (e) {
+        // Getting the current value of textarea
+        var currentText = $(this).val();
+       
+        var names ="";
+        $("input[type=text]").each(function() {
+            console.log($(this).val());
+            if ($(this).val()){
+                names += $(this).val();
+            }
+        });
+       
+        $("textarea").html(names).show;
+    });
+
+
+        var totalCount = 39;
+
+      $('#preview_div').keypress(function(event){
+
+        if(($("#preview_div").val().length) > totalCount)
+        {
+             inline();
+            $("#preview_div").val($("#preview_div").val().substring(0,totalCount));
+            $("#content").text("You are limited");
+        
+        }
+        else{
+            $("#content").text("Remaining Characters :" + (totalCount-$("#preview_div").val().length));
+        }
+
+        
+      });
+    });
+
+
+  
+
+    </script>
+</body>
+</html>
